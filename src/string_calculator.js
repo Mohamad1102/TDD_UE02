@@ -7,14 +7,25 @@ StringCalculator.prototype.add = function(string_numbers) {
 };
 
 function electronsAroundCores(diceArray) {
-    // Sort the array in ascending order
-    diceArray.sort((a, b) => a - b);
-    
-    // Calculate the sum of the last five elements in the sorted array
-    let sum = 0;
-    for (let i = diceArray.length - 1; i >= diceArray.length - 5; i--) {
-        sum += diceArray[i];
+    // Überprüfen, ob die Eingabe leer ist oder die Anzahl der Würfel nicht innerhalb des erlaubten Bereichs liegt
+    if (diceArray.length === 0 || diceArray.length < 4 || diceArray.length > 6) {
+        return 0;
     }
-    
-    return sum;
+
+    // Überprüfen, ob alle Zahlen im Array innerhalb des erlaubten Bereichs liegen
+    for (let i = 0; i < diceArray.length; i++) {
+        if (diceArray[i] < 1 || diceArray[i] > 6) {
+            return 0;
+        }
+    }
+
+    // Zählen der ungeraden Zahlen (außer 1) im Array und Subtraktion von 1 für jede
+    let result = 0;
+    for (let i = 0; i < diceArray.length; i++) {
+        if (diceArray[i] % 2 !== 0 && diceArray[i] !== 1) {
+            result += (diceArray[i] - 1);
+        }
+    }
+
+    return result;
 }
